@@ -161,6 +161,7 @@ Converters can be added to support other types. Six sibling modules adapt popula
 * [Scalars (primitives, boxed, and String)](com.squareup.retrofit2:converter-scalars): _com.squareup.retrofit2:converter-scalars_
   
 Here's an example of using the ```GsonConverterFactory``` class to generate an implementation of the ```GitHubService``` interface which uses Gson for its deserialization.
+
 ```java
 Retrofit retrofit = new Retrofit.Builder()
     .baseUrl("https://api.github.com")
