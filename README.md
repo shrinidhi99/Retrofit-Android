@@ -153,12 +153,12 @@ By default, Retrofit can only deserialize HTTP bodies into OkHttp's ```ResponseB
 Converters can be added to support other types. Six sibling modules adapt popular serialization libraries for your convenience.
 
 * [Gson](https://github.com/google/gson): _com.squareup.retrofit2:converter-gson_
-* [Jackson](com.squareup.retrofit2:converter-jackson): _com.squareup.retrofit2:converter-jackson_
-* [Moshi](com.squareup.retrofit2:converter-moshi): _com.squareup.retrofit2:converter-moshi_
-* [Protobuf](com.squareup.retrofit2:converter-protobuf): _com.squareup.retrofit2:converter-protobuf_
-* [Wire](com.squareup.retrofit2:converter-wire): _com.squareup.retrofit2:converter-wire_
-* [Simple XML](com.squareup.retrofit2:converter-simplexml): _com.squareup.retrofit2:converter-simplexml_
-* [Scalars (primitives, boxed, and String)](com.squareup.retrofit2:converter-scalars): _com.squareup.retrofit2:converter-scalars_
+* [Jackson](http://wiki.fasterxml.com/JacksonHome): _com.squareup.retrofit2:converter-jackson_
+* [Moshi](https://github.com/square/moshi/): _com.squareup.retrofit2:converter-moshi_
+* [Protobuf](https://developers.google.com/protocol-buffers/): _com.squareup.retrofit2:converter-protobuf_
+* [Wire](https://github.com/square/wire): _com.squareup.retrofit2:converter-wire_
+* [Simple XML](http://simple.sourceforge.net/): _com.squareup.retrofit2:converter-simplexml_
+* [Scalars (primitives, boxed, and String)](https://github.com/square/retrofit/tree/master/retrofit-converters/scalars): _com.squareup.retrofit2:converter-scalars_
   
 Here's an example of using the ```GsonConverterFactory``` class to generate an implementation of the ```GitHubService``` interface which uses Gson for its deserialization.
 ```java
