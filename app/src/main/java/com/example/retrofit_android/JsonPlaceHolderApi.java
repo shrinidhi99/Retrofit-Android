@@ -11,6 +11,9 @@ import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.HeaderMap;
+import retrofit2.http.Headers;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -23,9 +26,9 @@ public interface JsonPlaceHolderApi {
 
     @GET("posts")
     Call<List<Post>> getPosts(
-                            @Query("userId") Integer[] userId,
-                            @Query("_sort") String sort,
-                            @Query("_order") String order);
+            @Query("userId") Integer[] userId,
+            @Query("_sort") String sort,
+            @Query("_order") String order);
 
     @GET("posts")
     Call<List<Post>> getPosts(@QueryMap Map<String, String> parameters);
@@ -51,11 +54,16 @@ public interface JsonPlaceHolderApi {
     @POST("posts")
     Call<Post> createPost(@FieldMap Map<String, String> fields);
 
+    @Headers({"Static-Header1: 123", "Static-Header2: 456"})
     @PUT("posts/{id}")
-    Call<Post> putPost(@Path("id") int id, @Body Post post);
+    Call<Post> putPost(@Header("Dynamic-Header") String header,
+                       @Path("id") int id,
+                       @Body Post post);
 
     @PATCH("posts/{id}")
-    Call<Post> patchPost(@Path("id") int id, @Body Post post);
+    Call<Post> patchPost(@HeaderMap Map<String, String> headers,
+                         @Path("id") int id,
+                         @Body Post post);
 
     @DELETE("posts/{id}")
     Call<Void> deletePost(@Path("id") int id);
