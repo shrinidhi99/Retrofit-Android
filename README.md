@@ -171,3 +171,33 @@ GitHubService service = retrofit.create(GitHubService.class);
 ```
 ### CUSTOM CONVERTERS
 If you need to communicate with an API that uses a content-format that Retrofit does not support out of the box (e.g. YAML, txt, custom format) or you wish to use a different library to implement an existing format, you can easily create your own converter. Create a class that extends the [```Converter.Factory``` class](https://github.com/square/retrofit/blob/master/retrofit/src/main/java/retrofit2/Converter.java) and pass in an instance when building your adapter.
+
+The source code to the Retrofit, its samples, and this website is available on [GitHub](https://github.com/square/retrofit).
+
+### MAVEN
+```xml
+<dependency>
+  <groupId>com.squareup.retrofit2</groupId>
+  <artifactId>retrofit</artifactId>
+  <version>(insert latest version)</version>
+</dependency>
+```
+### GRADLE
+```groovy
+implementation 'com.squareup.retrofit2:retrofit:(insert latest version)'
+```
+Retrofit requires at minimum Java 7 or Android 2.3.
+
+### Download
+___
+Download [the latest JAR](https://search.maven.org/remote_content?g=com.squareup.retrofit2&a=retrofit&v=LATEST) or grab from Maven central at the coordinates ```com.squareup.retrofit2:retrofit:2.6.2```.
+
+Snapshots of the development version are available in [Sonatype's ```snapshots``` repository](https://oss.sonatype.org/content/repositories/snapshots/).
+
+Retrofit requires at minimum Java 8+ or Android API 21+.
+
+R8 / ProGuard
+___
+If you are using R8 the shrinking and obfuscation rules are included automatically.
+
+ProGuard users must manually add the options from [this file](https://github.com/square/retrofit/blob/master/retrofit/src/main/resources/META-INF/proguard/retrofit2.pro). (Note: You might also need rules for OkHttp and Okio which are dependencies of this library)
