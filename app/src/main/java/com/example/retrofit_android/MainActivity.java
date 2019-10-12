@@ -3,6 +3,8 @@ package com.example.retrofit_android;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView textViewResult;
     private JsonPlaceHolderApi jsonPlaceHolderApi;
+    Button put, get, post, patch, delete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         textViewResult = findViewById(R.id.text_id_result);
+        put = findViewById(R.id.PUT);
+        get = findViewById(R.id.GET);
+        post = findViewById(R.id.POST);
+        patch = findViewById(R.id.PATCH);
+        delete = findViewById(R.id.DELETE);
 
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -61,11 +69,47 @@ public class MainActivity extends AppCompatActivity {
 
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
-        getPosts();
-//        getComments();
-//        createPost();
-//        updatePost();
-//        deletePost();
+        get.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getPosts();
+                getComments();
+            }
+        });
+
+        put.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textViewResult.setText("");
+                putPost();
+            }
+        });
+
+        patch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textViewResult.setText("");
+                patchPost();
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textViewResult.setText("");
+                deletePost();
+            }
+        });
+
+        post.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textViewResult.setText("");
+                createPost();
+            }
+        });
+
+
     }
 
     private void getPosts() {
@@ -169,7 +213,38 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void updatePost() {
+    private void putPost() {
+        Post post = new Post(12, null, "New Text");
+
+        Call<Post> call = jsonPlaceHolderApi.putPost("", 5, post);
+        call.enqueue(new Callback<Post>() {
+            @Override
+            public void onResponse(Call<Post> call, Response<Post> response) {
+                if (!response.isSuccessful()) {
+                    textViewResult.setText("Code: " + response.code());
+                    return;
+                }
+
+                Post postResponse = response.body();
+
+                String content = "";
+                content += "Code: " + response.code() + "\n";
+                content += "ID: " + postResponse.getId() + "\n";
+                content += "User ID: " + postResponse.getUserId() + "\n";
+                content += "Title: " + postResponse.getTitle() + "\n";
+                content += "Text: " + postResponse.getText() + "\n\n";
+
+                textViewResult.setText(content);
+            }
+
+            @Override
+            public void onFailure(Call<Post> call, Throwable t) {
+                textViewResult.setText(t.getMessage());
+            }
+        });
+    }
+
+    private void patchPost() {
         Post post = new Post(12, null, "New Text");
         Map<String, String> headers = new HashMap<>();
         headers.put("Map-Header1", "def");
